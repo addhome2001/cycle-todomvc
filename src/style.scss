@@ -1,0 +1,123 @@
+$font-color: #6d6d6d;
+$bg: #ebebeb;
+$defaultSz: 40px;
+
+@define-extend button {
+  position: relative;
+  z-index: 1;
+  border: none;
+  width: $defaultSz;
+  height: $defaultSz;
+}
+
+@define-mixin placeholderColor $color {
+  &::-webkit-input-placeholder { color: $color ; }
+  &:-moz-placeholder { color: $color ; }
+  &::-moz-placeholder { color: $color ; }
+  &:-ms-input-placeholder { color: $color ; }
+}
+
+body {
+  color: $font-color;
+  background: $bg;
+  padding: 30px 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+.wrapper {
+  width: 40%;
+  margin: auto;
+  box-shadow: 1px 2px 2px #d0d0d0
+}
+
+.header {
+  overflow: hidden;
+  position: relative;
+
+  .addItemInput {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border: none;
+    right: $defaultSz;
+    width: 100%;
+    text-indent: 60px;
+    padding-right: 5px;
+    background: #1cc4a3;
+    color: #fff;
+    font-size: 15px;
+    @mixin placeholderColor #e6e6e6;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .addBtn {
+    float: right;
+    background: #1bbc9b;
+    font-size: 20px;
+    color: #eee;
+    @extend button;
+
+    &:hover {
+      background: #19b394;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.content {
+  .items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    .item {
+      height: $defaultSz;
+      background: #f7f7f7;
+      position: relative;
+
+      .check {
+        height: $defaultSz;
+        width: $defaultSz;
+        margin: 0;
+        display: inline-block;
+
+        .complete {
+          visibility: hidden;
+        }
+      }
+
+      .text {
+        line-height: $defaultSz;
+        display: inline-block;
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        text-indent: 10px;
+      }
+
+      .remove {
+        @extend button;
+        background: none;
+        float: right;
+        color: $font-color;
+        &:focus {
+          outline: none;
+        }
+      }
+
+      &:nth-of-type(even) {
+        background: #fcfcfc;
+      }
+
+    }
+  }
+}
