@@ -15,7 +15,16 @@ module.exports = {
         compress: {
           warnings: false
         }
-      })
+      }),
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+      }),
+      new webpack.DefinePlugin(
+        {
+          'process.env.NODE_ENV': JSON.stringify('production')
+        }
+      )
   ],
   resolve: {
 		extensions: ['', '.js', 'jsx']
@@ -29,7 +38,14 @@ module.exports = {
         query: {
           cacheDirectory: true
         }
-      }
+      },
+      {
+        test: /\.[s]css$/,
+        loader: 'style!css!postcss',
+      },
     ]
+  },
+  postcss: function() {
+    return [require('precss')]
   }
 };

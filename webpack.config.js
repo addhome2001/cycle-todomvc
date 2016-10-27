@@ -15,19 +15,23 @@ module.exports = {
      contentBase: './dist',
   },
 	output: {
-    path: path.join(__dirname, './dist'),
+    path: path.join(__dirname, '/dist'),
 		filename: 'bundle.js',
 	},
-  plugins:[new webpack.HotModuleReplacementPlugin()],
-    resolveLoader: {
+  plugins:[
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin(
+      {
+        'process.env.NODE_ENV': JSON.stringify('development')
+      }
+    )
+  ],
+  resolveLoader: {
    	modulesDirectories: ['node_modules']
  	},
   resolve: {
 	  extensions: ['', '.js', 'jsx'],
-    modules: [
-      path.resolve('./src'),
-      'node_modules'
-    ]
+    modules: ['node_modules']
   },
   module: {
 	  loaders: [
@@ -38,13 +42,14 @@ module.exports = {
         query: {
           cacheDirectory: true
         }
-      }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'style!css!postcss',
+      },
     ]
   },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
-    })
-  ],
+  postcss: function() {
+    return [require('precss')]
+  }
 };
