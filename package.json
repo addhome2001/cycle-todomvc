@@ -32,6 +32,7 @@
     "@cycle/dom": "13.0.0",
     "@cycle/rxjs-adapter": "3.0.3",
     "@cycle/rxjs-run": "^3.0.3",
+    "autoprefixer": "^6.5.1",
     "css-loader": "0.25.0",
     "postcss-loader": "1.0.0",
     "precss": "1.4.0",
