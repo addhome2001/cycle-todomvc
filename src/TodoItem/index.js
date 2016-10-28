@@ -8,10 +8,11 @@ export function TodoItem({ DOM, state$ }) {
   const TodoItem = ([text, complete]) => (
     h('li.item', [
       h('label.check', [
+        h('span.box', { class: { checkedBox: complete } }),
         h('input.complete', { props: { type: 'checkbox', checked: complete } }),
       ]),
-      h('div.text', { style: { 'text-decoration': complete ? 'line-through' : 'initial' } }, text),
-      h('button.remove','X')])
+      h('div.text', { class: { checked: complete } }, text),
+      h('div.remove')])
   );
 
   const sink = {

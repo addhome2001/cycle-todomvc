@@ -1,12 +1,16 @@
+import { Observable } from 'rxjs';
 import { h } from '@cycle/dom';
 
 export function TodoInput(DOM) {
-  const addItem$ = DOM.select('.addBtn').events('click').mapTo(null);
   const addItemText$ = DOM.select('.addItemInput').events('input').map(({target:{ value }}) => value);
+  const addItem$ = Observable.merge(
+    DOM.select('.addBtn').events('click').mapTo(null),
+    DOM.select('.addItemInput').events('keyup').filter(e => e.code === 'Enter').mapTo(null)
+  );
 
-  const item$ = addItemText$.sample(addItem$);
+  const action$ = addItemText$.sample(addItem$);
 
-  const vdom$ = addItem$.startWith("").map(() =>
+  const vdom$ = action$.startWith("").map(() =>
     h('input.addItemInput', {
       hook: { update:(old, {elm})=> elm.value="" },
       props: { placeholder: "What To Do" }
@@ -15,7 +19,7 @@ export function TodoInput(DOM) {
 
   const sink = {
     DOM: vdom$,
-    item: item$
+    item: action$
   }
 
   return sink;
