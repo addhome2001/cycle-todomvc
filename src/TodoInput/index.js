@@ -1,25 +1,14 @@
-import { Observable } from 'rxjs';
-import { h } from '@cycle/dom';
+import indent from './indent';
+import model from './model';
+import view from './view';
 
-export function TodoInput(DOM) {
-  const addItemText$ = DOM.select('.addItemInput').events('input').map(({target:{ value }}) => value);
-  const addItem$ = Observable.merge(
-    DOM.select('.addBtn').events('click').mapTo(null),
-    DOM.select('.addItemInput').events('keyup').filter(e => e.code === 'Enter').mapTo(null)
-  );
-
-  const action$ = addItemText$.sample(addItem$);
-
-  const vdom$ = action$.startWith("").map(() =>
-    h('input.addItemInput', {
-      hook: { update:(old, {elm})=> elm.value="" },
-      props: { placeholder: "What To Do" }
-    })
-  );
+export default function(DOM) {
+  const itemValue$ = model(indent(DOM));
+  const vdom$ = view(itemValue$);
 
   const sink = {
     DOM: vdom$,
-    item: action$
+    item: itemValue$
   }
 
   return sink;
