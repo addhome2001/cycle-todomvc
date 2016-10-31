@@ -1,10 +1,9 @@
-import { Collection } from '../helper';
-import { TodoItem } from '../TodoItem'
+import indent from './indent';
+import model from './model';
+import view from './view';
 
-export function TodoList({ DOM, props: props$ }) {
-  const add$ = props$.map(val => ({ state$: Observable.of(val.trim()) }));
-  const todoListItems$ = Collection(TodoItem, { DOM }, add$, item => item.remove$);
-  const vdom$ = Collection.pluck(todoListItems$, item => item.DOM);
+export default function({ DOM, props: props$ }) {
+  const vdom$ = view(model(indent(DOM, props$)));
 
   const sink = {
     DOM: vdom$
