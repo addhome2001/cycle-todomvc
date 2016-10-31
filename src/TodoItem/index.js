@@ -1,26 +1,15 @@
-import { h } from '@cycle/dom';
-import { Observable } from 'rxjs';
+import indent from './indent';
+import model from './model';
+import view from './view';
 
-export function TodoItem({ DOM, state$ }) {
-  const removeItem$ = DOM.select('.remove').events('click');
-  const complete$ = DOM.select('.complete').events('change').map(e => e.target.checked).startWith(false);
-
-  const TodoItem = ([text, complete]) => (
-    h('li.item', [
-      h('label.check', [
-        h('span.box', { class: { checkedBox: complete } }),
-        h('input.complete', { props: { type: 'checkbox', checked: complete } }),
-      ]),
-      h('div.text', { class: { checked: complete } }, text),
-      h('div.remove')])
-  );
+export default function({ DOM, add$ }) {
+  const { remove$, complete$ } = indent(DOM);
+  const addItem$ = model({ complete$, add$ });
+  const vdom$ = view(addItem$);
 
   const sink = {
-    DOM: Observable.combineLatest(
-      state$,
-      complete$
-    ).map(TodoItem),
-    remove$: removeItem$
+    DOM: vdom$,
+    remove$
   }
 
   return sink
