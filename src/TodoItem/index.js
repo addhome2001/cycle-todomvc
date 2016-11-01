@@ -4,11 +4,12 @@ import view from './view';
 
 export default function({ DOM, add$ }) {
   const { remove$, complete$ } = indent(DOM);
-  const addItem$ = model({ complete$, add$ });
+  const { addItem$, counter$ } = model({ complete$, add$ });
   const vdom$ = view(addItem$);
 
   const sink = {
     DOM: vdom$,
+    counter$,
     remove$
   }
 

@@ -1,7 +1,7 @@
 import { h } from '@cycle/dom';
 
 export default function(state$) {
-  return state$.map(([text, complete]) =>
+  return state$.map(([complete, text]) =>
     h('li.item', [
       h('label.check', [
         h('span.box', { class: { checkedBox: complete } }),
