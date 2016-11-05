@@ -77,7 +77,12 @@ button:focus {
 
   .info {
     border-top: 1px solid hsla(0,0%,93%,1);
-    background: #fff;
+    display: none;
+    padding: 0 10px;
+
+    .itemCount {
+      float: right;
+    }
   }
 
   .items {
@@ -85,10 +90,16 @@ button:focus {
     padding: 0;
     margin: 0;
 
-    .item {
+    & > li {
       height: $defaultSz;
       background: #f7f7f7;
       position: relative;
+      line-height: $defaultSz;
+
+      & + .info {
+        display: block;
+        background: #fff;
+      }
 
       &:hover {
         .remove {
@@ -131,7 +142,6 @@ button:focus {
       }
 
       .text {
-        line-height: $defaultSz;
         display: inline-block;
         position: absolute;
         left: 40px;
