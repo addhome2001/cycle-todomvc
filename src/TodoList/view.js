@@ -1,5 +1,11 @@
 import { h } from '@cycle/dom';
 
+const renderFilterInput = (purpose, filter) =>
+  h('label', [
+    purpose,
+    h('input.filter', { props: { type: 'radio', name: 'filter', value: purpose, checked: filter === purpose } })
+  ])
+
 export default function view(state$) {
   return state$.map(([counter, items, filter]) =>
     [
@@ -7,18 +13,9 @@ export default function view(state$) {
         h('li.info', [
           h('div.itemCount', [`${counter} items left`]),
           h('div.filterArea', [
-            h('label', [
-              'All',
-              h('input.filter', { props: { type: 'radio', name: 'filter', value: 'All', checked: filter === 'All' } })
-            ]),
-            h('label', [
-              'Active',
-              h('input.filter', { props: { type: 'radio', name: 'filter', value: 'Active', checked: filter === 'Active' } })
-            ]),
-            h('label', [
-              'Completed',
-              h('input.filter', { props: { type: 'radio', name: 'filter', value: 'Completed', checked: filter === 'Completed' } })
-            ])
+            renderFilterInput("All", filter),
+            renderFilterInput("Active", filter),
+            renderFilterInput("Completed", filter)
           ])
         ])
       ]),

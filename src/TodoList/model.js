@@ -3,7 +3,7 @@ import { h } from '@cycle/dom';
 import { Collection, filterTrigger } from '../helper';
 
 export default function ({ items$, filterStatus$ }){
-  const status$ = filterStatus$.startWith("All").do(v => console.log(v));
+  const status$ = filterStatus$.startWith('All');
   const filter$ = status$.map(status => filterTrigger[status]);
 
   return Observable.combineLatest(
