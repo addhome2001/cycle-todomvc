@@ -10,9 +10,8 @@ export default function ({ items$, filterStatus$ }){
     Collection.merge(items$, item => item.counter$).startWith(0).scan((prev, curr) => prev + curr),
     Collection.pluck(items$, ({ DOM, completeStatus$ }) =>
       Observable.combineLatest(DOM, completeStatus$, filter$,
-        (DOM, completeStatus, filter) => {
-          return filter(completeStatus) ? DOM : h('li', {style: {display: 'none'}})
-        }
+        (DOM, completeStatus, filter) =>
+          filter(completeStatus) ? DOM : h('li', {style: {display: 'none'}})
       ),
     ),
     status$

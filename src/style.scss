@@ -83,6 +83,21 @@ button:focus {
     .itemCount {
       float: right;
     }
+
+    .filterArea {
+      input[type="radio"] {
+        display: none;
+
+        &:checked + span {
+          background: #1cc4a3;
+          color: #f3f3f3;
+        }
+      }
+      span {
+        margin: 0 10px;
+        padding: 5px;
+      }
+    }
   }
 
   .items {

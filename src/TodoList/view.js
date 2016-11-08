@@ -2,8 +2,8 @@ import { h } from '@cycle/dom';
 
 const renderFilterInput = (purpose, filter) =>
   h('label', [
-    purpose,
-    h('input.filter', { props: { type: 'radio', name: 'filter', value: purpose, checked: filter === purpose } })
+    h('input.filter', { props: { type: 'radio', name: 'filter', value: purpose, checked: filter === purpose } }),
+    h('span', purpose)
   ])
 
 export default function view(state$) {
