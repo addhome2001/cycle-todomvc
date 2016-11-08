@@ -3,4 +3,5 @@ node_modules/
 .idea/
 .git/
 .DS_Store
+src/sample
 npm-debug.log
