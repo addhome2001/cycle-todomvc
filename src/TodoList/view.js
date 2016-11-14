@@ -15,7 +15,8 @@ export default function view(state$) {
           h('div.filterArea', [
             renderFilterInput("All", filter),
             renderFilterInput("Active", filter),
-            renderFilterInput("Completed", filter)
+            renderFilterInput("Completed", filter),
+            h('button.deleteCompeleted', "Delete Compeleted")
           ])
         ])
       ]),
