@@ -3,8 +3,8 @@ import model from './model';
 import view from './view';
 
 export default function({ DOM, add$ }) {
-  const { remove$, complete$ } = indent(DOM);
-  const { addItem$, counter$, completeStatus$ } = model({ complete$, add$, remove$ });
+  const { remove$, ...indents } = indent(DOM);
+  const { addItem$, counter$, completeStatus$ } = model({ add$, remove$, ...indents });
   const vdom$ = view(addItem$);
 
   const sink = {

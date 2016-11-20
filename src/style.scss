@@ -120,6 +120,15 @@ button:focus {
       position: relative;
       line-height: $defaultSz;
 
+      .edit { display: none; }
+      .text { display: block; }
+
+      &.editable {
+        .edit { display: inline-block; }
+        .text { display: none; }
+        .check, .remove { visibility: hidden; }
+      }
+
       & + .info {
         display: block;
         background: #fff;
