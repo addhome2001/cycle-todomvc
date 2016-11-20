@@ -1,10 +1,13 @@
 import { Observable } from 'rxjs';
 
 export default function(DOM) {
-  const itemValue$ = DOM.select('.addItemInput').events('input').map(({target:{ value }}) => value);
+  const itemValue$ = DOM.select('.addItemInput').events('input').pluck('target', 'value');
+  const addBtn$ = DOM.select('.addBtn').events('click').mapTo(null);
+  const submitItem$ = DOM.select('.addItemInput').events('keyup').filter(e => e.code === 'Enter').mapTo(null);
+
   const addItem$ = Observable.merge(
-    DOM.select('.addBtn').events('click').mapTo(null),
-    DOM.select('.addItemInput').events('keyup').filter(e => e.code === 'Enter').mapTo(null)
+    addBtn$,
+    submitItem$
   );
 
   return { itemValue$, addItem$ };

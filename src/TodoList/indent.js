@@ -3,7 +3,7 @@ import { Collection } from '../helper';
 import TodoItem from '../TodoItem';
 
 export default function(DOM, props$) {
-  const filterStatus$ = DOM.select('.filter').events('change').map(({ target: { value } }) => value);
+  const filterStatus$ = DOM.select('.filter').events('change').pluck('target', 'value');
   const deleteCompeleted$ = DOM.select('.deleteCompeleted').events('click').mapTo(null);
   const add$ =
     props$
