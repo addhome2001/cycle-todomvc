@@ -9,7 +9,7 @@ export default function(state$) {
       ]),
       h('div.text', { class: { checked: complete } }, text),
       h('input.edit', {
-        props: { type: 'text' , value: text },
+        props: { type: 'text' , value: text, maxLength: 40 },
         hook: {
           update: ({ elm }) => { elm.focus() }
         }

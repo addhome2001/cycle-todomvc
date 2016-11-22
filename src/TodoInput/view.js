@@ -5,7 +5,7 @@ export default function(state$) {
     [
       h('input.addItemInput', {
         hook: { update:(old, {elm})=> elm.value="" },
-        props: { placeholder: "What To Do" }
+        props: { placeholder: "What To Do", maxLength: 40 }
       }),
       h('button.addBtn', '+')
     ]
