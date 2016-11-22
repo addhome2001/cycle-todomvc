@@ -119,8 +119,25 @@ button:focus {
       background: #f7f7f7;
       position: relative;
       line-height: $defaultSz;
+      overflow: hidden;
 
-      .edit { display: none; }
+      .edit {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        margin-right: -80px;
+        border: none;
+        font-size: 15px;
+        text-indent: 16px;
+        width: 100%;
+        box-shadow: inset 0px 0px 29px -11px rgba(181,181,181,1);
+
+        &:focus {
+          outline: none;
+        }
+      }
       .text { display: block; }
 
       &.editable {
