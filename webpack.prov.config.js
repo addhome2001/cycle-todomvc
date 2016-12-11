@@ -7,7 +7,7 @@ module.exports = {
       "bundle": './src/index.js'
   },
   output: {
-      path: path.join(__dirname, 'dist'),
+      path: path.join(__dirname, 'dest'),
 		  filename: '[name].js',
 	},
   plugins: [
