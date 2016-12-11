@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 
-export default function(DOM) {
+export default function (DOM) {
   const remove$ = DOM.select('.remove').events('click');
   const complete$ = DOM.select('.complete').events('change').pluck('target', 'checked');
   const enterKeyup$ = DOM.select('.edit').events('keyup').filter(e => e.code === 'Enter');
@@ -10,8 +10,8 @@ export default function(DOM) {
   const edit$ = Observable.merge(
     disabledLock$,
     editText$.merge(
-      enterKeyup$
-    ).pluck('target', 'value')
+      enterKeyup$,
+    ).pluck('target', 'value'),
   );
 
   return { remove$, complete$, edit$ };

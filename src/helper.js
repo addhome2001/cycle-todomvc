@@ -6,5 +6,5 @@ export const Collection = makeCollection(rxjsAdapter);
 export const filterTrigger = {
   All: () => true,
   Active: complete => !complete,
-  Completed: complete => complete
-}
+  Completed: complete => complete,
+};

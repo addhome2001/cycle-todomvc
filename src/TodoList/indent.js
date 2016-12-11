@@ -1,8 +1,8 @@
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 import { Collection } from '../helper';
 import TodoItem from '../TodoItem';
 
-export default function(DOM, props$) {
+export default function (DOM, props$) {
   const filterStatus$ = DOM.select('.filter').events('change').pluck('target', 'value');
   const deleteCompeleted$ = DOM.select('.deleteCompeleted').events('click').mapTo(null);
   const add$ =
@@ -13,8 +13,8 @@ export default function(DOM, props$) {
   const items$ =
     Collection(TodoItem, { DOM }, add$,
       ({ remove$, completeStatus$ }) => remove$.merge(
-        completeStatus$.sample(deleteCompeleted$).filter(complete => complete)
+        completeStatus$.sample(deleteCompeleted$).filter(complete => complete),
       ));
 
-  return { items$ , filterStatus$, deleteCompeleted$ }
+  return { items$, filterStatus$, deleteCompeleted$ };
 }

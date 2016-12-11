@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { h } from '@cycle/dom';
 import { Collection, filterTrigger } from '../helper';
 
-export default function ({ items$, filterStatus$ }){
+export default function ({ items$, filterStatus$ }) {
   const status$ = filterStatus$.startWith('All');
   const filter$ = status$.map(status => filterTrigger[status]);
 
@@ -14,14 +14,18 @@ export default function ({ items$, filterStatus$ }){
 
   const itemsVdom$ = Observable.combineLatest(
     filter$,
-    Collection.pluck(items$, ({ DOM, completeStatus$ }) => Observable.combineLatest(DOM, completeStatus$)),
+    Collection.pluck(items$, ({ DOM, completeStatus$ }) =>
+      Observable.combineLatest(DOM, completeStatus$),
+    ),
     (filter, collection) =>
-      collection.map(([DOM, completeStatus]) => filter(completeStatus) ? DOM : h('li', {style: {display: 'none'}}))
+      collection.map(([DOM, completeStatus]) =>
+        (filter(completeStatus) ? DOM : h('li', { style: { display: 'none' } })),
+      ),
   );
 
   return Observable.combineLatest(
     counter$,
     itemsVdom$,
-    status$
-  )
+    status$,
+  );
 }
