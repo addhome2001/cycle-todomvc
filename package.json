@@ -25,10 +25,10 @@
     "babel-preset-stage-0": "6.5.0",
     "babel-register": "6.11.6",
     "babel-runtime": "6.11.6",
-    "webpack": "2.1.0-beta.4",
     "webpack-dev-server": "2.0.0-beta"
   },
   "dependencies": {
+    "webpack": "2.1.0-beta.4",
     "@cycle/collection": "^0.4.0",
     "@cycle/dom": "13.0.0",
     "@cycle/rxjs-adapter": "3.0.3",
