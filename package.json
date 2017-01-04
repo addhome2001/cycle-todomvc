@@ -28,9 +28,9 @@
     "webpack-dev-server": "2.0.0-beta"
   },
   "dependencies": {
-    "webpack": "2.1.0-beta.4",
     "@cycle/collection": "^0.4.0",
     "@cycle/dom": "13.0.0",
+    "@cycle/http": "11.2.0",
     "@cycle/rxjs-adapter": "3.0.3",
     "@cycle/rxjs-run": "^3.0.3",
     "autoprefixer": "^6.5.1",
@@ -41,6 +41,7 @@
     "postcss-loader": "1.0.0",
     "precss": "1.4.0",
     "rxjs": "5.0.0-rc.1",
-    "style-loader": "0.13.1"
+    "style-loader": "0.13.1",
+    "webpack": "2.1.0-beta.4"
   }
 }
