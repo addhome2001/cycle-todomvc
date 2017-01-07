@@ -8,7 +8,8 @@ export default function (DOM) {
 
   const sink = {
     DOM: vdom$,
-    item: state$,
+    // prevent value is empty or space
+    item: state$.map(val => val.trim()).filter(val => val.length > 0),
   };
 
   return sink;

@@ -5,10 +5,7 @@ import TodoItem from '../TodoItem';
 export default function (DOM, props$) {
   const filterStatus$ = DOM.select('.filter').events('change').pluck('target', 'value');
   const deleteCompeleted$ = DOM.select('.deleteCompeleted').events('click').mapTo(null);
-  const add$ =
-    props$
-      .filter(val => val.length > 0)
-      .map(val => ({ add$: Observable.of(val.trim()) }));
+  const add$ = props$.map(val => ({ add$: Observable.of(val) }));
 
   const items$ =
     Collection(TodoItem, { DOM }, add$,
