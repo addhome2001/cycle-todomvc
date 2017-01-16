@@ -12,11 +12,13 @@ export default function ({ items$, filterStatus$ }) {
       .scan((prev, curr) => prev + curr)
       .startWith(0);
 
+  const collection$ =
+    Collection
+      .pluck(items$, ({ DOM, completeStatus$ }) =>
+        Observable.combineLatest(DOM, completeStatus$));
+
   const itemsVdom$ = Observable.combineLatest(
-    filter$,
-    Collection.pluck(items$, ({ DOM, completeStatus$ }) =>
-      Observable.combineLatest(DOM, completeStatus$),
-    ),
+    filter$, collection$,
     (filter, collection) =>
       collection.map(([DOM, completeStatus]) =>
         (filter(completeStatus) ? DOM : h('li', { style: { display: 'none' } })),

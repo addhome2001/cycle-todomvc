@@ -4,44 +4,38 @@ import TodoList from './TodoList';
 import TodoInput from './TodoInput';
 import Loader from './Loader';
 
-import { getUserApi, setUserApi } from './utils';
-
-const titleResponse = response =>
-  Observable
-    .merge(...response)
-    .mergeMap(r$ => r$.pluck('text')
-    .map(item => JSON.parse(item).title));
-
-const titleRequest = inputText$ =>
-  inputText$
-    .mergeMap(text => Observable.of(setUserApi(text)))
-    .merge(Observable.of(getUserApi()));
+import { titleResponse, titleRequest } from './helper';
 
 export default function ({ DOM, HTTP }) {
   // Response
-  const items$ = titleResponse([HTTP.select('getItems'), HTTP.select('setItems')]);
+  const response$ = titleResponse([HTTP.select('getItems'), HTTP.select('setItems')]);
 
-  const { DOM: TodoInput$, item: inputText$ } = TodoInput(DOM);
-  const { DOM: TodoList$ } = TodoList({ DOM, props: items$ });
+  const {
+    DOM: TodoInput$,
+    item: item$,
+    lockStatus: lock$,
+  } = TodoInput({ DOM, props: response$ });
+
+  const { DOM: TodoList$ } = TodoList({ DOM, props: response$ });
 
   // Request
-  const http$ = Observable.merge(titleRequest(inputText$));
+  const request$ = titleRequest(item$);
 
-  const { DOM: LockStatus$ } = Loader([http$.mapTo(true), items$.mapTo(false)]);
+  const { DOM: Loader$ } = Loader({ props: { lock$ } });
 
   const vdom$ = Observable.combineLatest(
-    TodoInput$, TodoList$, LockStatus$,
-    (TodoInputVdom, TodoListVdom, lockStatus) =>
+    TodoInput$, TodoList$, Loader$,
+    (TodoInputVdom, TodoListVdom, LoaderVdom) =>
       h('div.wrapper', [
         h('div.header', TodoInputVdom),
         h('div.content', TodoListVdom),
-        lockStatus,
+        LoaderVdom,
       ]),
   );
 
   const sink = {
     DOM: vdom$,
-    HTTP: http$,
+    HTTP: request$,
   };
 
   return sink;
