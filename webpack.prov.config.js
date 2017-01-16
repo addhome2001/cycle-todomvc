@@ -3,12 +3,14 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 
+const destination = process.env.NODE_ENV === 'production' ? 'dist' : 'docs';
+
 module.exports = {
   entry: {
     bundle: './src/index.js',
   },
   output: {
-    path: path.join(__dirname, 'dest'),
+    path: path.join(__dirname, destination),
     filename: '[name].js',
   },
   plugins: [

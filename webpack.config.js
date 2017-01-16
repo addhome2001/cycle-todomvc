@@ -14,10 +14,10 @@ module.exports = {
   devServer: {
     host: 'localhost',
     port: 8000,
-    contentBase: './dest',
+    contentBase: './dist',
   },
   output: {
-    path: path.join(__dirname, '/dest'),
+    path: path.join(__dirname, '/dist'),
     filename: 'bundle.js',
   },
   plugins: [
