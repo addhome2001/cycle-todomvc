@@ -9,6 +9,7 @@
 - [Webpack 2](https://webpack.github.io)
 - [Webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
 - [Babel 6](https://babeljs.io/)
+- [JSON Placeholder](http://jsonplaceholder.typicode.com/)(Mock Api)
 
 ## Requirements
 Make sure your system has the correct Node and Npm versions.
