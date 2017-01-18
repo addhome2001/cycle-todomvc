@@ -26,12 +26,17 @@ module.exports = {
       {
         'process.env.NODE_ENV': JSON.stringify('development'),
       }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          precss,
+          autoprefixer({ browsers: ['ff >= 3.5', 'Chrome > 3.5', 'iOS < 7', 'ie < 9'] }),
+        ],
+      },
+    }),
   ],
-  resolveLoader: {
-    modulesDirectories: ['node_modules'],
-  },
   resolve: {
-    extensions: ['', '.js', 'jsx'],
+    extensions: ['.js', 'jsx'],
     modules: ['node_modules'],
   },
   module: {
@@ -39,21 +44,15 @@ module.exports = {
       {
         test: /\.js/,
         exclude: /(node_modules)/,
-        loaders: 'babel',
+        loaders: 'babel-loader',
         query: {
           cacheDirectory: true,
         },
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!postcss',
+        loader: 'style-loader!css-loader!postcss-loader',
       },
     ],
-  },
-  postcss() {
-    return [
-      precss,
-      autoprefixer({ browsers: ['ff >= 3.5', 'Chrome > 3.5', 'iOS < 7', 'ie < 9'] }),
-    ];
   },
 };

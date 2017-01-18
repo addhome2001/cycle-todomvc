@@ -14,7 +14,7 @@ module.exports = {
     filename: '[name].js',
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -28,30 +28,32 @@ module.exports = {
       {
         'process.env.NODE_ENV': JSON.stringify('production'),
       }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        postcss: [
+          precss,
+          autoprefixer({ browsers: ['ff >= 3.5', 'Chrome > 3.5', 'iOS < 7', 'ie < 9'] }),
+        ],
+      },
+    }),
   ],
   resolve: {
-    extensions: ['', '.js', 'jsx'],
+    extensions: ['.js', 'jsx'],
   },
   module: {
     loaders: [
       {
         test: /\.js[x]?$/,
         exclude: /(node_modules)/,
-        loaders: 'babel',
+        loaders: 'babel-loader',
         query: {
           cacheDirectory: true,
         },
       },
       {
         test: /\.[s]css$/,
-        loader: 'style!css!postcss',
+        loader: 'style-loader!css-loader!postcss-loader',
       },
     ],
-  },
-  postcss() {
-    return [
-      precss,
-      autoprefixer({ browsers: ['ff >= 3.5', 'Chrome > 3.5', 'iOS < 7', 'ie < 9'] }),
-    ];
   },
 };
