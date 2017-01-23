@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 
-const destination = process.env.NODE_ENV === 'production' ? 'dist' : 'docs';
+const destination = process.env.NODE_ENV === 'demo' ? 'docs' : 'dist';
 
 module.exports = {
   entry: {
@@ -23,12 +23,6 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
-    }),
-    new webpack.DefinePlugin(
-      {
-        'process.env.NODE_ENV': JSON.stringify('production'),
-      }),
-    new webpack.LoaderOptionsPlugin({
       options: {
         postcss: [
           precss,
@@ -39,20 +33,29 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', 'jsx'],
+    modules: ['node_modules'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js[x]?$/,
         exclude: /(node_modules)/,
-        loaders: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
       {
-        test: /\.[s]css$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ],
       },
     ],
   },

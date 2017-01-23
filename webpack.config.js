@@ -6,13 +6,13 @@ const precss = require('precss');
 module.exports = {
   entry: {
     bundle: [
-      'webpack-dev-server/client?http://localhost:8000',
+      'webpack-dev-server/client?http://0.0.0.0:8000',
       'webpack/hot/dev-server',
       './src/index.js',
     ],
   },
   devServer: {
-    host: 'localhost',
+    host: '0.0.0.0',
     port: 8000,
     contentBase: './dist',
   },
@@ -22,11 +22,9 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin(
-      {
-        'process.env.NODE_ENV': JSON.stringify('development'),
-      }),
     new webpack.LoaderOptionsPlugin({
+      minimize: false,
+      debug: true,
       options: {
         postcss: [
           precss,
@@ -40,18 +38,26 @@ module.exports = {
     modules: ['node_modules'],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js/,
         exclude: /(node_modules)/,
-        loaders: 'babel-loader',
-        query: {
-          cacheDirectory: true,
-        },
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!postcss-loader',
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ],
       },
     ],
   },
