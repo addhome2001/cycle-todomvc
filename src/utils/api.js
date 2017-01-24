@@ -1,4 +1,4 @@
-export const generateRandomNum = () => Math.round(Math.random() * 9) + 1;
+import { generateRandomNum } from './utils';
 
 export const getUserApi = () =>
   ({

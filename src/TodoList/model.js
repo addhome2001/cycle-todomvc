@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { h } from '@cycle/dom';
-import { Collection, filterTrigger } from '../helper';
+import { Collection } from '../helper';
+import { filterTrigger } from '../utils/utils';
 
 export default function ({ items$, filterStatus$ }) {
   const status$ = filterStatus$.startWith('All');
