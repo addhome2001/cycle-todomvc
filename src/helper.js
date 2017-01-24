@@ -1,15 +1,9 @@
 import rxjsAdapter from '@cycle/rxjs-adapter';
 import { Observable } from 'rxjs';
 import { makeCollection } from '@cycle/collection';
-import { getUserApi, setUserApi } from './utils';
+import { getUserApi, setUserApi } from './utils/api';
 
 export const Collection = makeCollection(rxjsAdapter);
-
-export const filterTrigger = {
-  All: () => true,
-  Active: complete => !complete,
-  Completed: complete => complete,
-};
 
 export const titleResponse = response =>
   Observable
@@ -19,5 +13,7 @@ export const titleResponse = response =>
 
 export const titleRequest = inputText$ =>
   inputText$
+    // Throw away all emitted values that take less then 1s
+    .debounceTime(1000)
     .mergeMap(text => Observable.of(setUserApi(text)))
     .merge(Observable.of(getUserApi()));
