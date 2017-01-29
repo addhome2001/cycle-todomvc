@@ -1,9 +1,9 @@
 {
-  "name": "cycle-TodoMVC",
+  "name": "cycle-todomvc",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "author": "",
+  "author": "addhome2001",
   "scripts": {
     "start": "webpack-dev-server --devtool eval --progress",
     "build": "webpack -p --config ./webpack.prov.config.js",
