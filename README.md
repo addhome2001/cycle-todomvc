@@ -2,7 +2,7 @@
 
 > TodoMVC example built with Cyclejs、Rxjs、PostCSS.
 
-[Live Demo](https://addhome2001.github.io/cycle-TodoMVC/)
+[Live Demo](https://addhome2001.github.io/cycle-todomvc/)
 
 ## Contains
 
