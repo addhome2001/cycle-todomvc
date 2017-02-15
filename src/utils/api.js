@@ -1,13 +1,13 @@
-import { generateRandomNum } from './utils';
+import { generateRandomNum } from './';
 
-export const getUserApi = () =>
+export const getItemsApi = () =>
   ({
     url: `https://jsonplaceholder.typicode.com/todos/${generateRandomNum()}`,
     category: 'getItems',
     method: 'GET',
   });
 
-export const setUserApi = title =>
+export const setItemsApi = title =>
   ({
     url: 'https://jsonplaceholder.typicode.com/todos',
     category: 'setItems',

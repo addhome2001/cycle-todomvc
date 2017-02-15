@@ -15,6 +15,8 @@ export default function ({ DOM, props: props$ }) {
   const item$ =
     // prevent value is empty or space (using by ajax)
     state$
+      // Throw away all emitted values that take less then 1s
+      .debounceTime(1000)
       .map(val => val.trim())
       .filter(val => val.length > 0);
 

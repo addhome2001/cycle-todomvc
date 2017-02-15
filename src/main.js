@@ -4,11 +4,11 @@ import TodoList from './TodoList';
 import TodoInput from './TodoInput';
 import Loader from './Loader';
 
-import { titleResponse, titleRequest } from './helper';
+import { getItem, sendItem, getInitialItems } from './helper';
 
 export default function ({ DOM, HTTP }) {
   // Response
-  const response$ = titleResponse([HTTP.select('getItems'), HTTP.select('setItems')]);
+  const response$ = getItem([HTTP.select('getItems'), HTTP.select('setItems')]);
 
   const {
     DOM: TodoInput$,
@@ -19,7 +19,7 @@ export default function ({ DOM, HTTP }) {
   const { DOM: TodoList$ } = TodoList({ DOM, props: response$ });
 
   // Request
-  const request$ = titleRequest(item$);
+  const request$ = sendItem(item$).merge(getInitialItems);
 
   const { DOM: Loader$ } = Loader({ props: { lock$ } });
 
