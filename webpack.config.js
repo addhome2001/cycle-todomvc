@@ -6,7 +6,6 @@ const precss = require('precss');
 module.exports = {
   entry: {
     bundle: [
-      'webpack-dev-server/client?http://0.0.0.0:8000',
       'webpack/hot/dev-server',
       './src/index.js',
     ],
@@ -35,7 +34,10 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.js', 'jsx'],
-    modules: ['node_modules'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules',
+    ],
   },
   module: {
     rules: [

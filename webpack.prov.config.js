@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 
-const destination = process.env.NODE_ENV === 'demo' ? 'docs' : 'dist';
+const destination = process.env.DEMO ? 'docs' : 'dist';
 
 module.exports = {
   entry: {
@@ -15,11 +15,6 @@ module.exports = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-      },
-    }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
@@ -30,10 +25,28 @@ module.exports = {
         ],
       },
     }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production'),
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        unused: true,
+        dead_code: true,
+      },
+      output: {
+        comments: false,
+      },
+    }),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
   ],
   resolve: {
     extensions: ['.js', 'jsx'],
-    modules: ['node_modules'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules',
+    ],
   },
   module: {
     rules: [
