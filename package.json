@@ -8,7 +8,10 @@
     "start": "webpack-dev-server --devtool eval --progress",
     "build": "cross-env NODE_ENV=production webpack --config ./webpack.prov.config.js",
     "build:demo": "cross-env NODE_ENV=production DEMO=1 webpack --config ./webpack.prov.config.js",
-    "lint": "./node_modules/.bin/eslint ."
+    "lint": "./node_modules/.bin/eslint .",
+    "test:watch": "cross-env NODE_ENV=test ./node_modules/.bin/ava -w --verbose",
+    "test": "cross-env NODE_ENV=test nyc ./node_modules/.bin/ava",
+    "validate": "npm run lint && npm test"
   },
   "engines": {
     "node": ">=6.2.2",
@@ -32,14 +35,25 @@
     "@cycle/rxjs-adapter": "3.0.3",
     "@cycle/rxjs-run": "^3.0.3",
     "autoprefixer": "6.5.1",
+    "ava": "0.17.0",
     "css-loader": "0.25.0",
     "eslint": "3.12.0",
     "eslint-config-airbnb-base": "10.0.1",
     "eslint-plugin-import": "2.2.0",
+    "nyc": "10.1.2",
     "postcss-loader": "1.0.0",
     "precss": "1.4.0",
     "rxjs": "5.0.3",
     "style-loader": "0.13.1",
     "webpack": "2.2.0"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ],
+    "babel": "inherit",
+    "files": [
+      "test/**/*.js"
+    ]
   }
 }
