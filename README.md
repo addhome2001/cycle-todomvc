@@ -1,14 +1,17 @@
 # cycle-TodoMVC
 
-> TodoMVC example built with Cyclejs、Rxjs、PostCSS.
-
 [Live Demo](https://addhome2001.github.io/cycle-todomvc/)
 
 ## Contains
 
-- [Webpack 2](https://webpack.github.io)
+- [Webpack 2](https://webpack.js.org/)
 - [Webpack-dev-server](https://webpack.github.io/docs/webpack-dev-server.html)
 - [Babel 6](https://babeljs.io/)
+- [Cycle.js](https://cycle.js.org/)
+- [Rxjs](http://reactivex.io/rxjs/)
+- [PostCSS](http://postcss.org/)
+- [ESLint](http://eslint.org/)
+- [AVA](https://github.com/avajs/ava)
 - [JSON Placeholder](http://jsonplaceholder.typicode.com/)(Mock Api)
 
 ## Requirements
