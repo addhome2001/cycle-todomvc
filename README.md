@@ -1,5 +1,7 @@
 # cycle-TodoMVC
 
+[![Build Status](https://travis-ci.org/addhome2001/cycle-todomvc.svg?branch=master)](https://travis-ci.org/addhome2001/cycle-todomvc)
+
 [Live Demo](https://addhome2001.github.io/cycle-todomvc/)
 
 ## Contains
