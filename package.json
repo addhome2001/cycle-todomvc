@@ -40,6 +40,7 @@
     "eslint": "3.12.0",
     "eslint-config-airbnb-base": "10.0.1",
     "eslint-plugin-import": "2.2.0",
+    "extract-text-webpack-plugin": "beta",
     "nyc": "10.1.2",
     "postcss-loader": "1.0.0",
     "precss": "1.4.0",

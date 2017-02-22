@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
 
@@ -40,6 +41,9 @@ module.exports = {
     }),
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
+    new ExtractTextPlugin({
+      filename: 'app.css',
+    }),
   ],
   resolve: {
     extensions: ['.js', 'jsx'],
@@ -64,11 +68,10 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'postcss-loader',
-        ],
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader?-autoprefixer', 'postcss-loader'],
+        }),
       },
     ],
   },
