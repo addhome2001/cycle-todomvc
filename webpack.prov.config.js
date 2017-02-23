@@ -3,8 +3,10 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
+const env = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
@@ -12,7 +14,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, destination),
-    filename: '[name].js',
+    filename: '[chunkhash:8].bundle.js',
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
@@ -43,6 +45,16 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({
       filename: 'app.css',
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Example',
+      filename: 'index.html',
+      template: 'templates/index.ejs',
+      production: env === 'production',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+      },
     }),
   ],
   resolve: {

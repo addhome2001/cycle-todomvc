@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const precss = require('precss');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -30,6 +31,11 @@ module.exports = {
           autoprefixer({ browsers: ['ff >= 3.5', 'Chrome > 3.5', 'iOS < 7', 'ie < 9'] }),
         ],
       },
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Cycle Todo MVC',
+      filename: 'index.html',
+      template: 'templates/index.ejs',
     }),
   ],
   resolve: {

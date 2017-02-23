@@ -7,3 +7,4 @@ src/sample
 npm-debug.log
 coverage
 .nyc_output
+/dist
