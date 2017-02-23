@@ -6,7 +6,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
-const env = process.env.NODE_ENV;
 
 module.exports = {
   entry: {
@@ -50,7 +49,6 @@ module.exports = {
       title: 'Example',
       filename: 'index.html',
       template: 'templates/index.ejs',
-      production: env === 'production',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
