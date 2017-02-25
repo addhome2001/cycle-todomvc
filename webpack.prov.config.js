@@ -46,7 +46,7 @@ module.exports = {
       filename: 'app.css',
     }),
     new HtmlWebpackPlugin({
-      title: 'Example',
+      title: 'Cycle Todo MVC',
       filename: 'index.html',
       template: 'templates/index.ejs',
       minify: {
