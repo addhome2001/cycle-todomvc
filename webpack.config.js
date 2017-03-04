@@ -11,6 +11,7 @@ module.exports = {
       './src/index.js',
     ],
   },
+  devtool: 'eval',
   devServer: {
     host: '0.0.0.0',
     port: 8000,
