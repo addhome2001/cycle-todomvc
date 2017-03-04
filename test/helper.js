@@ -1,6 +1,6 @@
 import ava from 'ava';
 import { Observable, ReplaySubject } from 'rxjs';
-import { getItem, sendItem, getInitialItems } from '../src/helper';
+import { getItem, sendItem, getInitialItems$ } from '../src/helper';
 
 ava('should receive parsed json response', (t) => {
   const expect = ['todo-1', 'todo-2', 'todo-3'];
@@ -58,7 +58,7 @@ ava('should send initial request Observable', (t) => {
     },
   ];
   const reqSubject$ = new ReplaySubject();
-  const request$ = getInitialItems;
+  const request$ = getInitialItems$;
   reqSubject$.next('todo-1');
   reqSubject$.complete();
 
