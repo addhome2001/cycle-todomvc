@@ -7,12 +7,16 @@ export default function (DOM) {
   const editText$ = DOM.select('.edit').events('blur');
   const disabledLock$ = DOM.select('.text').events('dblclick').mapTo(true);
 
-  const edit$ = Observable.merge(
+  const editable$ = Observable.merge(
     disabledLock$,
-    editText$.merge(
-      enterKeyup$,
-    ).pluck('target', 'value'),
+    editText$.mapTo(false),
+    enterKeyup$.mapTo(false),
   );
 
-  return { remove$, complete$, edit$ };
+  const update$ = Observable.merge(
+    editText$,
+    enterKeyup$,
+  ).pluck('target', 'value');
+
+  return { remove$, complete$, editable$, update$ };
 }

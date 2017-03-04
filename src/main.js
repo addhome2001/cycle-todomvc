@@ -4,7 +4,7 @@ import TodoList from './TodoList';
 import TodoInput from './TodoInput';
 import Loader from './Loader';
 
-import { getItem, sendItem, getInitialItems } from './helper';
+import { getItem, sendItem, getInitialItems$ } from './helper';
 
 export default function ({ DOM, HTTP }) {
   // Response
@@ -14,12 +14,12 @@ export default function ({ DOM, HTTP }) {
     DOM: TodoInput$,
     item: item$,
     lockStatus: lock$,
-  } = TodoInput({ DOM, props: response$ });
+  } = TodoInput({ DOM, props: { response$ } });
 
-  const { DOM: TodoList$ } = TodoList({ DOM, props: response$ });
+  const { DOM: TodoList$ } = TodoList({ DOM, props: { response$ } });
 
   // Request
-  const request$ = sendItem(item$).merge(getInitialItems);
+  const request$ = sendItem(item$).merge(getInitialItems$);
 
   const { DOM: Loader$ } = Loader({ props: { lock$ } });
 

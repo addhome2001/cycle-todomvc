@@ -15,4 +15,4 @@ export const sendItem = inputText$ =>
   inputText$
     .mergeMap(text => Observable.of(setItemsApi(text)));
 
-export const getInitialItems = Observable.of(getItemsApi());
+export const getInitialItems$ = Observable.of(getItemsApi());
