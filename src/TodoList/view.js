@@ -1,27 +1,18 @@
 import { h } from '@cycle/dom';
 
-const renderItems = collection =>
-  collection.map(([DOM, completeStatus, operator]) =>
-    operator(completeStatus) ? DOM : h('li', { style: { display: 'none' } }),
+const renderItems = collections =>
+  collections.map(collection =>
+    collection || h('li', { style: { display: 'none' } }),
   );
 
-const renderFilterInput = (purpose, filter) =>
-  h('label', [
-    h('input.filter', { props: { type: 'radio', name: 'filter', value: purpose, checked: filter === purpose } }),
-    h('span', purpose),
-  ]);
-
 export default function view(state$) {
-  return state$.map(([counter, collections, status]) =>
+  return state$.map(([counter, collections, filter]) =>
     [
-      h('ul.items', [...renderItems(collections),
+      h('ul.items', [
+        ...renderItems(collections),
         h('li.info', [
           h('div.itemCount', [`${counter} items left`]),
-          h('div.filterArea', [
-            renderFilterInput('All', status),
-            renderFilterInput('Active', status),
-            renderFilterInput('Completed', status),
-          ]),
+          filter,
           h('div.deleteCompeleted', 'Delete Compeleted'),
         ]),
       ]),

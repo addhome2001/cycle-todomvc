@@ -7,16 +7,31 @@ import { Collection } from '../helper';
 
 // Component
 import TodoItem from '../TodoItem';
+import TodoFilter from '../TodoFilter';
 
 export default function ({ DOM, props: { response$ } }) {
-  const { filterStatus$, deleteCompeleted$ } = indent(DOM);
+  const { deleteCompeleted$ } = indent(DOM);
+
+  // TodoFilter
+  const { DOM: TodoFilter$, filterOperator$ } = TodoFilter(DOM);
+
   const items$ =
     Collection(TodoItem, { DOM },
       response$.map(val => ({ add$: Observable.of(val) })),
-      ({ remove$, completeStatus$ }) => remove$.merge(
-        completeStatus$.sample(deleteCompeleted$).filter(complete => complete),
+      ({ remove$, completeStatus$ }) =>
+        remove$.merge(
+          completeStatus$
+            .sample(deleteCompeleted$)
+            .filter(complete => complete),
       ));
-  const state$ = model({ items$, filterStatus$ });
+
+  const state$ =
+    // concat TodoFilter vdom with state
+    model({ items$, filterOperator$ })
+      .combineLatest(TodoFilter$,
+        (state, filter) => state.concat(filter),
+      );
+
   const vdom$ = view(state$);
 
   const sink = {

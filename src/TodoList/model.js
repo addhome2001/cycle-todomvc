@@ -1,11 +1,7 @@
 import { Observable } from 'rxjs';
 import { Collection } from '../helper';
-import { filterTrigger } from '../utils';
 
-export default function ({ items$, filterStatus$ }) {
-  const status$ = filterStatus$.startWith('All');
-  const operator$ = status$.map(status => filterTrigger[status]);
-
+export default function ({ items$, filterOperator$ }) {
   const counter$ =
     Collection
       .merge(items$, item => item.counter$)
@@ -15,12 +11,15 @@ export default function ({ items$, filterStatus$ }) {
   const collections$ =
     Collection
       .pluck(items$, ({ DOM, completeStatus$ }) =>
-        Observable.combineLatest(DOM, completeStatus$, operator$),
+        Observable
+          .combineLatest(DOM, completeStatus$, filterOperator$)
+          .map(([item, complete, filter]) =>
+            filter(complete) ? item : false,
+          ),
       );
 
   return Observable.combineLatest(
     counter$,
     collections$,
-    status$,
   );
 }
