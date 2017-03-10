@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackMd5Hash = require('webpack-md5-hash');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
 
@@ -16,6 +17,7 @@ module.exports = {
     filename: '[chunkhash:8].bundle.js',
   },
   plugins: [
+    new WebpackMd5Hash(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
@@ -43,7 +45,7 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new ExtractTextPlugin({
-      filename: 'app.css',
+      filename: '[name].[contenthash:8].css',
     }),
     new HtmlWebpackPlugin({
       title: 'Cycle Todo MVC',
