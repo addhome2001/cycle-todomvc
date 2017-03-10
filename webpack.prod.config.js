@@ -14,7 +14,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, destination),
-    filename: '[chunkhash:8].bundle.js',
+    filename: '[name].[chunkhash:8].js',
   },
   plugins: [
     new WebpackMd5Hash(),

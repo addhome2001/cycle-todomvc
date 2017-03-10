@@ -4,7 +4,7 @@ import { makeHTTPDriver } from '@cycle/http';
 
 import main from './main';
 
-require('./style.scss');
+require('./assets/css/app.scss');
 
 Cycle.run(main, {
   DOM: makeDOMDriver('#app_container'),
