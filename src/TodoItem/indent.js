@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 
 export default function (DOM) {
-  const remove$ = DOM.select('.remove').events('click');
+  const remove$ = DOM.select('.remove').events('click').mapTo(true);
   const complete$ = DOM.select('.complete').events('change').pluck('target', 'checked');
   const enterKeyup$ = DOM.select('.edit').events('keyup').filter(e => e.code === 'Enter');
   const editText$ = DOM.select('.edit').events('blur');

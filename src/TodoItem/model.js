@@ -15,14 +15,17 @@ export default function ({ complete$, add$, remove$, editable$, update$ }) {
     // +1
     add$.mapTo(1),
     // -1
-    remove$.mapTo(-1),
+    remove$
+      .withLatestFrom(completeStatus$)
+      // index of status is completeStatus
+      .map(status => status[1] ? 0 : -1),
   );
 
-  const addItem$ = Observable.combineLatest(
+  const item$ = Observable.combineLatest(
     completeStatus$,
     inputText$,
     inputEditable$,
   );
 
-  return { counter$, addItem$, completeStatus$ };
+  return { counter$, item$, completeStatus$ };
 }
