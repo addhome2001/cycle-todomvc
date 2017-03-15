@@ -12,14 +12,20 @@ export default function ({ items$, filterOperator$ }) {
     Collection
       .pluck(items$, ({ DOM, completeStatus$ }) =>
         Observable
-          .combineLatest(DOM, completeStatus$, filterOperator$)
-          .map(([item, complete, filter]) =>
-            filter(complete) ? item : false,
-          ),
+          .combineLatest(DOM, completeStatus$)
+          .map(([dom, complete]) => ({ dom, complete })),
+      );
+
+  // the collections after filter
+  const filterCollections$ =
+    filterOperator$
+      .combineLatest(collections$)
+      .map(([filter, items]) =>
+        items.map(item => filter(item.complete) ? item.dom : false),
       );
 
   return Observable.combineLatest(
     counter$,
-    collections$,
+    filterCollections$,
   );
 }
