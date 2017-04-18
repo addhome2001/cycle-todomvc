@@ -10,7 +10,7 @@ export default function (itemValue$, props$) {
   // focus input after recive response
   // blur input after submit inputText
   // combine above stream to change input's status
-  // state$ => send request
+  // item$ => send request
   // props$ => receive response
   const lockStatus$ = Observable.merge(item$.mapTo(true), props$.mapTo(false));
 
