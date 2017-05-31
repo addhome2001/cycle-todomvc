@@ -2,15 +2,14 @@ import indent from './indent';
 import model from './model';
 import view from './view';
 
-export default function ({ DOM, props: { response$ } }) {
+export default function ({ DOM }) {
   const action$ = indent(DOM);
-  const { item$, lockStatus$ } = model(action$, response$);
-  const vdom$ = view(lockStatus$);
+  const { addTodo$, lockInput$ } = model(action$);
+  const vdom$ = view(lockInput$);
 
   const sink = {
     DOM: vdom$,
-    item: item$,
-    lockStatus: lockStatus$,
+    HTTP: addTodo$,
   };
 
   return sink;

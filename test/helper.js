@@ -1,69 +1,50 @@
 import ava from 'ava';
 import { Observable, ReplaySubject } from 'rxjs';
-import { getItem, sendItem, getInitialItems$ } from '../src/helper';
+import { spy } from 'sinon';
+import { getResponse$, sendRequest$ } from '../src/helper';
 
-ava('should receive parsed json response', (t) => {
+const mockAction = spy();
+
+ava.beforeEach(() => {
+  mockAction.reset();
+});
+
+ava('getResponse$ Observable', (t) => {
   const expect = ['todo-1', 'todo-2', 'todo-3'];
-  const reqSubject$ = new ReplaySubject();
-  const response$ = getItem([reqSubject$]);
+  const resSubject$ = new ReplaySubject();
+  const response$ = getResponse$(resSubject$);
 
-  reqSubject$.next(Observable.of({ text: JSON.stringify({ title: 'todo-1' }) }));
-  reqSubject$.next(Observable.of({ text: JSON.stringify({ title: 'todo-2' }) }));
-  reqSubject$.next(Observable.of({ text: JSON.stringify({ title: 'todo-3' }) }));
-  reqSubject$.complete();
+  resSubject$.next(Observable.of({
+    request: { category: 'category' },
+    body: 'todo-1',
+  }));
+  resSubject$.next(Observable.of({
+    request: { category: 'category' },
+    body: 'todo-2',
+  }));
+  resSubject$.next(Observable.of({
+    request: { category: 'category' },
+    body: 'todo-3',
+  }));
+  resSubject$.complete();
 
   return response$
-    .scan((arr, curr) => arr.concat(curr), [])
+    .skip(1)
+    .scan((arr, curr) => arr.concat(curr.payload), [])
     .last()
     .map(result => t.deepEqual(result, expect));
 });
 
-ava('should send request Observable', (t) => {
-  const expect = [
-    {
-      category: 'setItems',
-      method: 'POST',
-      send: { title: 'todo-1' },
-    },
-    {
-      category: 'setItems',
-      method: 'POST',
-      send: { title: 'todo-2' },
-    },
-    {
-      category: 'setItems',
-      method: 'POST',
-      send: { title: 'todo-3' },
-    },
-  ];
+ava('sendRequest$ Observable', (t) => {
   const reqSubject$ = new ReplaySubject();
-  const request$ = sendItem(reqSubject$);
-  reqSubject$.next('todo-1');
-  reqSubject$.next('todo-2');
-  reqSubject$.next('todo-3');
+  const request$ = sendRequest$(reqSubject$);
+
+  reqSubject$.next(mockAction);
+  reqSubject$.next(mockAction);
+  reqSubject$.next(mockAction);
   reqSubject$.complete();
 
   return request$
-    .map(({ category, method, send }) => ({ category, method, send }))
-    .scan((arr, curr) => arr.concat(curr), [])
     .last()
-    .map(result => t.deepEqual(result, expect));
-});
-
-ava('should send initial request Observable', (t) => {
-  const expect = [
-    {
-      category: 'getItems',
-      method: 'GET',
-    },
-  ];
-  const reqSubject$ = new ReplaySubject();
-  const request$ = getInitialItems$;
-  reqSubject$.next('todo-1');
-  reqSubject$.complete();
-
-  return request$
-    .map(({ category, method }) => ({ category, method }))
-    .scan((arr, curr) => arr.concat(curr), [])
-    .map(result => t.deepEqual(result, expect));
+    .map(() => t.is(mockAction.callCount, 3));
 });

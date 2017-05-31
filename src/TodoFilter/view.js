@@ -12,7 +12,7 @@ export default function (state$) {
       h('div.filterArea', [
         renderFilterInput('All', status),
         renderFilterInput('Active', status),
-        renderFilterInput('Completed', status),
+        renderFilterInput('Checked', status),
       ]),
     ],
   );

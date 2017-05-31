@@ -1,18 +1,16 @@
-import { Observable } from 'rxjs';
+import * as actions from '../modules';
 
-export default function (itemValue$, props$) {
+export default function (inputValue$) {
   // prevent value is empty or space (using by ajax)
-  const item$ =
-    itemValue$
+  const addTodo$ =
+    inputValue$
       .map(val => val.trim())
-      .filter(val => val.length > 0);
+      .filter(val => val.length > 0)
+      .map(actions.addTodo);
 
-  // focus input after recive response
   // blur input after submit inputText
-  // combine above stream to change input's status
   // item$ => send request
-  // props$ => receive response
-  const lockStatus$ = Observable.merge(item$.mapTo(true), props$.mapTo(false));
+  const lockInput$ = addTodo$.mapTo(true).startWith(null);
 
-  return { item$, lockStatus$ };
+  return { addTodo$, lockInput$ };
 }

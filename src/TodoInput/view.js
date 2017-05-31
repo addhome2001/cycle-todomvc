@@ -10,9 +10,6 @@ export default function (state$) {
               // after submit
               elm.blur();
               elm.value = '';
-            } else {
-              // after receive response
-              elm.focus();
             }
           },
         },

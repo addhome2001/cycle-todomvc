@@ -1,31 +1,25 @@
 import { Observable } from 'rxjs';
 import { Collection } from '../helper';
+import * as actions from '../modules';
 
-export default function ({ items$, filterOperator$ }) {
-  const counter$ =
-    Collection
-      .merge(items$, item => item.counter$)
-      .scan((prev, curr) => prev + curr)
-      .startWith(0);
+export default function ({ items$, filterOperator$, deleteCompeleted$, leftAmount$ }) {
+  const todoRequest$ = Observable.merge(
+    deleteCompeleted$
+      .withLatestFrom(items$.pluck('length'), leftAmount$)
+      .filter(([, len, amount]) => len !== amount)
+      .map(actions.removeCompeleteTodos),
+    Collection.merge(items$, item => item.HTTP),
+  );
 
   const collections$ =
     Collection
-      .pluck(items$, ({ DOM, completeStatus$ }) =>
+      .pluck(items$, ({ DOM, checked$ }) =>
         Observable
-          .combineLatest(DOM, completeStatus$)
-          .map(([dom, complete]) => ({ dom, complete })),
+          .combineLatest(DOM, checked$, filterOperator$,
+            (dom, checked, filter) =>
+              filter(checked) && dom,
+          ),
       );
 
-  // the collections after filter
-  const filterCollections$ =
-    filterOperator$
-      .combineLatest(collections$)
-      .map(([filter, items]) =>
-        items.map(item => filter(item.complete) ? item.dom : false),
-      );
-
-  return Observable.combineLatest(
-    counter$,
-    filterCollections$,
-  );
+  return { collections$, todoRequest$ };
 }

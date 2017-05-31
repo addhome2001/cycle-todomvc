@@ -2,16 +2,20 @@ import indent from './indent';
 import model from './model';
 import view from './view';
 
-export default function ({ DOM, add$ }) {
+export default function ({ DOM, item$ }) {
   const indents = indent(DOM);
-  const { item$, counter$, completeStatus$ } = model({ add$, ...indents });
-  const vdom$ = view(item$);
+  const {
+    itemInfo$,
+    checked$,
+    todoRequest$,
+  } = model({ item$, ...indents });
+
+  const vdom$ = view(itemInfo$);
 
   const sink = {
     DOM: vdom$,
-    counter$,
-    remove$: indents.remove$,
-    completeStatus$,
+    HTTP: todoRequest$,
+    checked$,
   };
 
   return sink;

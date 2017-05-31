@@ -1,31 +1,31 @@
 import { Observable } from 'rxjs';
+import * as actions from '../modules';
 
-export default function ({ complete$, add$, remove$, editable$, update$ }) {
-  const completeStatus$ = complete$.startWith(false);
-  const inputEditable$ = editable$.startWith(false);
+export default function ({ item$, removeTodo$, editable$, update$, checkTodo$ }) {
+  const checked$ = item$.pluck('checked');
+  const id$ = item$.pluck('_id');
+  const content$ = item$.pluck('content');
 
-  const inputText$ = Observable.merge(
-    add$,
-    update$,
-  ).filter(edit => edit.length > 0);
-
-  const counter$ = Observable.merge(
-    // +1 or -1
-    complete$.map(c => c ? -1 : +1),
-    // +1
-    add$.mapTo(1),
-    // -1
-    remove$
-      .withLatestFrom(completeStatus$)
-      // index of status is completeStatus
-      .map(status => status[1] ? 0 : -1),
+  const itemInfo$ = Observable.combineLatest(
+    checked$,
+    content$,
+    editable$.startWith(false),
   );
 
-  const item$ = Observable.combineLatest(
-    completeStatus$,
-    inputText$,
-    inputEditable$,
+  const todoRequest$ = id$.concatMap(id =>
+    Observable.merge(
+      checkTodo$
+        .withLatestFrom(checked$)
+        .filter(([checked, oldChecked]) => checked !== undefined && checked !== oldChecked)
+        .map(([checked]) => actions.updateTodo(id, { checked })),
+      removeTodo$
+        .map(() => actions.removeTodo(id)),
+      update$
+        .withLatestFrom(content$)
+        .filter(([content, oldContent]) => content.length > 0 && content !== oldContent)
+        .map(([content]) => actions.updateTodo(id, { content })),
+    ),
   );
 
-  return { counter$, item$, completeStatus$ };
+  return { itemInfo$, checked$, todoRequest$ };
 }
