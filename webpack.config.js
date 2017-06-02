@@ -38,6 +38,9 @@ module.exports = {
       filename: 'index.html',
       template: 'templates/index.ejs',
     }),
+    new webpack.DefinePlugin({
+      CLIENT_API: JSON.stringify('https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos'),
+    }),
   ],
   resolve: {
     extensions: ['.js'],

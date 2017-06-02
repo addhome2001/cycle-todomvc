@@ -31,6 +31,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
+      CLIENT_API: JSON.stringify('https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos'),
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

@@ -1,7 +1,11 @@
+/* eslint-disable no-undef */
+
+const API = CLIENT_API;
+
 export default {
   getTodos({ category }) {
     return {
-      url: 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos',
+      url: API,
       category,
       method: 'GET',
     };
@@ -9,7 +13,7 @@ export default {
 
   addTodo({ category, payload }) {
     return {
-      url: 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos',
+      url: API,
       category,
       method: 'POST',
       send: payload,
@@ -18,7 +22,7 @@ export default {
 
   updateTodo({ category, payload, id }) {
     return {
-      url: `https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos/${id}`,
+      url: `${API}/${id}`,
       category,
       method: 'PUT',
       send: payload,
@@ -27,7 +31,7 @@ export default {
 
   removeTodo({ category, id }) {
     return {
-      url: `https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos/${id}`,
+      url: `${API}/${id}`,
       category,
       method: 'DELETE',
     };
@@ -35,7 +39,7 @@ export default {
 
   removeCompeleteTodos({ category }) {
     return {
-      url: 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos/checked',
+      url: `${API}/checked`,
       category,
       method: 'DELETE',
     };
