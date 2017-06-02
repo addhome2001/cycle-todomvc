@@ -70,7 +70,7 @@ export const reducers = {
   },
 };
 
-export default function reducer$(state, { type, payload }) {
+export default function reducer(state, { type, payload }) {
   if (type in reducers) {
     return reducers[type](state, payload);
   }
