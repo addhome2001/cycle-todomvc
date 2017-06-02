@@ -42,9 +42,9 @@ yarn
 npm start
 ```
 
-## Build
+## Build Production
 ```
-npm run build
+npm run build:prod
 ```
 
 LICENSE
