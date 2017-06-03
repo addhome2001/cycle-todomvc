@@ -8,6 +8,9 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
 
+// API
+const CLIENT_API = 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos';
+
 module.exports = {
   entry: {
     bundle: './src/index.js',
@@ -31,7 +34,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production'),
-      CLIENT_API: JSON.stringify('https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos'),
+      CLIENT_API: JSON.stringify(CLIENT_API),
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {

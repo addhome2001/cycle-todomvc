@@ -4,6 +4,9 @@ const autoprefixer = require('autoprefixer');
 const precss = require('precss');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+// API
+const CLIENT_API = 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos';
+
 module.exports = {
   entry: {
     bundle: [
@@ -39,7 +42,7 @@ module.exports = {
       template: 'templates/index.ejs',
     }),
     new webpack.DefinePlugin({
-      CLIENT_API: JSON.stringify('https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos'),
+      CLIENT_API: JSON.stringify(CLIENT_API),
     }),
   ],
   resolve: {
@@ -66,6 +69,13 @@ module.exports = {
           'style-loader',
           'css-loader',
           'postcss-loader',
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader',
         ],
       },
     ],
