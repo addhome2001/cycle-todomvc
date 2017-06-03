@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Collection } from '../helper';
+import Collection from '../helper/collection';
 import * as actions from '../modules';
 
 export default function ({ items$, filterOperator$, deleteCompeleted$, leftAmount$ }) {

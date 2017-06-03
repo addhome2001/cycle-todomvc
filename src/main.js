@@ -5,7 +5,7 @@ import TodoInput from './TodoInput';
 import Loader from './Loader';
 import reducer, { getTodos, initialState } from './modules';
 
-import { sendRequest$, getResponse$ } from './helper';
+import { sendRequest$, getResponse$ } from './helper/services';
 
 export default function ({ DOM, HTTP }) {
   // Response

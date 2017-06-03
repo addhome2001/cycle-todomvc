@@ -1,5 +1,5 @@
 import ava from 'ava';
-import { filterTrigger, incOrdec, todoFactory } from '../../src/utils';
+import { filterTrigger, incOrdec, todoFactory } from './';
 
 ava('Test filterTrigger', (t) => {
   t.true(filterTrigger.All(), 'All\'s parameter is empty');

@@ -1,18 +1,31 @@
 {
   "presets": [
     ["es2015", {
-      "modules": false,
+      "modules": false
     }
   ], "stage-0"],
   "plugins": [
-    "transform-runtime",
-    ["module-resolver", {
-      "root": ["./src"],
-    }]
+    "transform-runtime"
   ],
   "env": {
     "test": {
       "presets": ["es2015", "stage-0"],
+      "plugins": [
+        ["babel-plugin-webpack-alias", { "config": "./webpack/test" }],
+        [
+          "transform-runtime",
+          {
+            "extends": true
+          }
+        ]
+        // [
+        //     "babel-plugin-webpack-loaders",
+        //     {
+        //         "config": "webpack.test.config.js",
+        //         "verbose": false
+        //     }
+        // ],
+      ]
     }
   }
 }

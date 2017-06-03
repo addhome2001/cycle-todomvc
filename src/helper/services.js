@@ -1,9 +1,5 @@
-import rxjsAdapter from '@cycle/rxjs-adapter';
 import { Observable } from 'rxjs';
-import { makeCollection } from '@cycle/collection';
-import api from './utils/api';
-
-export const Collection = makeCollection(rxjsAdapter);
+import api from '../utils/api';
 
 export const getResponse$ = response$ =>
   response$

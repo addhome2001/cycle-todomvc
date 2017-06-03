@@ -1,11 +1,12 @@
-/* eslint-disable no-undef */
+/* eslint-disable */
+import Config from 'Config';
 
-const API = CLIENT_API;
+const { CLIENT_API } = Config;
 
 export default {
   getTodos({ category }) {
     return {
-      url: API,
+      url: CLIENT_API,
       category,
       method: 'GET',
     };
@@ -13,7 +14,7 @@ export default {
 
   addTodo({ category, payload }) {
     return {
-      url: API,
+      url: CLIENT_API,
       category,
       method: 'POST',
       send: payload,
@@ -22,7 +23,7 @@ export default {
 
   updateTodo({ category, payload, id }) {
     return {
-      url: `${API}/${id}`,
+      url: `${CLIENT_API}/${id}`,
       category,
       method: 'PUT',
       send: payload,
@@ -31,7 +32,7 @@ export default {
 
   removeTodo({ category, id }) {
     return {
-      url: `${API}/${id}`,
+      url: `${CLIENT_API}/${id}`,
       category,
       method: 'DELETE',
     };
@@ -39,7 +40,7 @@ export default {
 
   removeCompeleteTodos({ category }) {
     return {
-      url: `${API}/checked`,
+      url: `${CLIENT_API}/checked`,
       category,
       method: 'DELETE',
     };

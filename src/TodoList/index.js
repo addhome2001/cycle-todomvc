@@ -2,7 +2,7 @@ import indent from './indent';
 import model from './model';
 import view from './view';
 
-import { Collection } from '../helper';
+import Collection from '../helper/collection';
 
 // Component
 import TodoItem from '../TodoItem';

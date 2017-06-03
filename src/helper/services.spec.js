@@ -1,7 +1,7 @@
 import ava from 'ava';
 import { Observable, ReplaySubject } from 'rxjs';
 import { spy } from 'sinon';
-import { getResponse$, sendRequest$ } from '../src/helper';
+import { getResponse$, sendRequest$ } from './services';
 
 const mockAction = spy();
 

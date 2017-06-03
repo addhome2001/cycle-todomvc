@@ -7,16 +7,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
 const destination = process.env.DEMO ? 'docs' : 'dist';
+const NODE_ENV = process.env.NODE_ENV || 'production';
 
-// API
-const CLIENT_API = 'https://wt-addhome2001-yahoo-com-tw-0.run.webtask.io/webtask-crud/todos';
 
-module.exports = {
+module.exports = () => ({
   entry: {
-    bundle: './src/index.js',
+    bundle: './src',
   },
   output: {
-    path: path.join(__dirname, destination),
+    path: path.join(__dirname, '../../', destination),
     filename: '[name].[chunkhash:8].js',
   },
   plugins: [
@@ -33,8 +32,7 @@ module.exports = {
       },
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production'),
-      CLIENT_API: JSON.stringify(CLIENT_API),
+      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -64,6 +62,9 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
     modules: ['node_modules'],
+    alias: {
+      Config: path.join(__dirname, './config'),
+    },
   },
   module: {
     rules: [
@@ -86,6 +87,13 @@ module.exports = {
           use: ['css-loader?-autoprefixer', 'postcss-loader'],
         }),
       },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          'url-loader?limit=10000',
+          'img-loader',
+        ],
+      },
     ],
   },
-};
+});
