@@ -45,10 +45,13 @@ export default function ({ DOM, HTTP }) {
   const vdom$ = Observable.combineLatest(
     TodoInput$, TodoList$, Loader$,
     (TodoInputVdom, TodoListVdom, LoaderVdom) =>
-      h('div.wrapper', [
-        h('div.header', TodoInputVdom),
-        h('div.content', TodoListVdom),
-        LoaderVdom,
+      h('main', [
+        h('section.container_title', 'Todos'),
+        h('section.wrapper', [
+          h('div.header', TodoInputVdom),
+          h('div.content', TodoListVdom),
+          LoaderVdom,
+        ]),
       ]),
   );
 

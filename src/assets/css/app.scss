@@ -21,11 +21,16 @@ $main-color: #1cc4a3;
 body {
   color: $font-color;
   background: $bg;
-  padding: 30px 0;
 }
 
 button:focus {
   outline: none;
+}
+
+.container_title {
+  font-size: 3.5rem;
+  font-weight: 100;
+  text-align: center;
 }
 
 .wrapper {
