@@ -69,6 +69,7 @@ button:focus {
     background: $main-color;
     color: #fff;
     font-size: 15px;
+    margin: 0;
     @mixin placeholderColor #e6e6e6;
 
     &:focus {
