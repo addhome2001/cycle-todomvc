@@ -25,7 +25,7 @@ Make sure your system has the correct Node and Npm versions.
 - Npm 3.9.x
 
 ## Usage
-- Changing source file in `/src` and click save.
+- Changing source code in `/src` and click save.
 - open `http:localhost:8000`.
 
 ## Install
