@@ -82,6 +82,8 @@ button:focus {
     background: #1bbc9b;
     font-size: 20px;
     color: #eee;
+    border-radius: 0;
+
     @extend button;
 
     &:hover {
