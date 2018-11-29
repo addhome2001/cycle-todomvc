@@ -7,8 +7,7 @@
   "scripts": {
     "start": "better-npm-run start",
     "build": "better-npm-run build",
-    "build:demo": "npm run clear:demo && better-npm-run build:demo",
-    "clear:demo": "rimraf docs",
+    "build:demo": "rimraf docs && better-npm-run build:demo",
     "debug": "better-npm-run debug",
     "lint": "./node_modules/.bin/eslint .",
     "ava": "better-npm-run ava",
