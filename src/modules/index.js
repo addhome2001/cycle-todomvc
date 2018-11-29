@@ -6,7 +6,7 @@ const GET_TODOS = 'GET_TODOS';
 const ADD_TODO = 'ADD_TODO';
 const UPDATE_TODO = 'UPDATE_TODO';
 const REMOVE_TODO = 'REMOVE_TODO';
-const REMOVE_COMPELETED_TODOS = 'REMOVE_COMPELETED_TODOS';
+const REMOVE_COMPLETED_TODOS = 'REMOVE_COMPLETED_TODOS';
 
 // reducers
 export const initialState = {
@@ -59,7 +59,7 @@ export const reducers = {
       leftAmount: checked ? leftAmount : leftAmount - 1,
     };
   },
-  [REMOVE_COMPELETED_TODOS](state) {
+  [REMOVE_COMPLETED_TODOS](state) {
     const { todos } = state;
     const remainerTodos = todos.filter(todo => !todo.item$.checked);
 
@@ -77,7 +77,7 @@ export default function reducer(state, { type, payload }) {
   return state;
 }
 
-// action creaters
+// action creators
 export function getTodos() {
   return client => client.getTodos({
     category: GET_TODOS,
@@ -106,8 +106,8 @@ export function removeTodo(id) {
   });
 }
 
-export function removeCompeleteTodos() {
-  return client => client.removeCompeleteTodos({
-    category: REMOVE_COMPELETED_TODOS,
+export function removeCompletedTodos() {
+  return client => client.removeCompletedTodos({
+    category: REMOVE_COMPLETED_TODOS,
   });
 }

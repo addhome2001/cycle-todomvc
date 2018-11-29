@@ -38,7 +38,7 @@ export default {
     };
   },
 
-  removeCompeleteTodos({ category }) {
+  removeCompletedTodos({ category }) {
     return {
       url: `${CLIENT_API}/checked`,
       category,

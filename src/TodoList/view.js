@@ -13,7 +13,7 @@ export default function view(state$) {
         h('li.info', [
           h('div.itemCount', [`${amount} items left`]),
           filter,
-          h('div.deleteCompeleted', 'Delete Compeleted'),
+          h('div.deleteCompletedIcon', 'Delete Completed'),
         ]),
       ]),
     ],

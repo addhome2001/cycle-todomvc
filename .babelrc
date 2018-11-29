@@ -18,13 +18,6 @@
             "extends": true
           }
         ]
-        // [
-        //     "babel-plugin-webpack-loaders",
-        //     {
-        //         "config": "webpack.test.config.js",
-        //         "verbose": false
-        //     }
-        // ],
       ]
     }
   }

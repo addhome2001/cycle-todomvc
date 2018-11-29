@@ -9,7 +9,7 @@ import TodoItem from '../TodoItem';
 import TodoFilter from '../TodoFilter';
 
 export default function ({ DOM, props: { todos$, leftAmount$ } }) {
-  const { deleteCompeleted$ } = indent(DOM);
+  const { deleteCompletedIcon$ } = indent(DOM);
 
   // TodoFilter
   const {
@@ -23,17 +23,17 @@ export default function ({ DOM, props: { todos$, leftAmount$ } }) {
     collections$,
     todoRequest$,
   } = model({
-    items$,
-    filterOperator$,
-    deleteCompeleted$,
-    leftAmount$,
-  });
+      items$,
+      filterOperator$,
+      deleteCompletedIcon$,
+      leftAmount$,
+    });
 
   const listInfo$ = collections$
     .withLatestFrom(leftAmount$, TodoFilter$,
-      (collections, amount, list) =>
-        [collections].concat(list, amount),
-    );
+    (collections, amount, list) =>
+      [collections].concat(list, amount),
+  );
 
   const vdom$ = view(listInfo$);
 
