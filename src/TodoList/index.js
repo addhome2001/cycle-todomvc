@@ -23,11 +23,11 @@ export default function ({ DOM, props: { todos$, leftAmount$ } }) {
     collections$,
     todoRequest$,
   } = model({
-      items$,
-      filterOperator$,
-      deleteCompletedIcon$,
-      leftAmount$,
-    });
+    items$,
+    filterOperator$,
+    deleteCompletedIcon$,
+    leftAmount$,
+  });
 
   const listInfo$ = collections$
     .withLatestFrom(leftAmount$, TodoFilter$,
