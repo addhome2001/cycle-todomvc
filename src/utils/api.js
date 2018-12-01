@@ -6,7 +6,7 @@ const { CLIENT_API } = Config;
 export default {
   getTodos({ category }) {
     return {
-      url: CLIENT_API,
+      url: `${CLIENT_API}/todos`,
       category,
       method: 'GET',
     };
@@ -14,7 +14,7 @@ export default {
 
   addTodo({ category, payload }) {
     return {
-      url: CLIENT_API,
+      url: `${CLIENT_API}/todos`,
       category,
       method: 'POST',
       send: payload,
@@ -23,7 +23,7 @@ export default {
 
   updateTodo({ category, payload, id }) {
     return {
-      url: `${CLIENT_API}/${id}`,
+      url: `${CLIENT_API}/todos/${id}`,
       category,
       method: 'PUT',
       send: payload,
@@ -32,7 +32,7 @@ export default {
 
   removeTodo({ category, id }) {
     return {
-      url: `${CLIENT_API}/${id}`,
+      url: `${CLIENT_API}/todos/${id}`,
       category,
       method: 'DELETE',
     };
@@ -40,7 +40,7 @@ export default {
 
   removeCompletedTodos({ category }) {
     return {
-      url: `${CLIENT_API}/checked`,
+      url: `${CLIENT_API}/todos/checked`,
       category,
       method: 'DELETE',
     };
